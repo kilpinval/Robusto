@@ -1,0 +1,18 @@
+How Linux boots
+when the kernel can not read your disk yet.
+  When Linux starts,the kernel often has no driver for 
+your disk yet. The firmware on  motherboard starts
+GRUB, and GROUB copies two files from /boot into RAM:
+the kernel (vmlinuz) and the initramfs (initrd.img), a small
+cpio archive of files.
+  The kernel upacks the initramfs into RAM as a temporary root
+disk and runs its /init script as PID
+1. Debian 13 builds its disk drivers as modules instead of into
+the kernel (CONFIG_BLK_DEV_NVME=m), so one generic kernel boots every
+PC; each PC needs only one of them, and Debian packs most of those
+modules into the initramfs
+(MODULES=most); the initramfs carries those modules (nvme.ko.xz among them).
+The script starts udev (line 222, run_scripts /scripts/init-top,
+udev loads the NVMe driver into the kernel, and the script mounts your
+real disk and switches the root to it (Debian is init ends with exec 
+run-init; other distros use switch_root(8). GNU GROUB
