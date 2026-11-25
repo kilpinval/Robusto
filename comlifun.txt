@@ -15,4 +15,5 @@ modules into the initramfs
 The script starts udev (line 222, run_scripts /scripts/init-top,
 udev loads the NVMe driver into the kernel, and the script mounts your
 real disk and switches the root to it (Debian is init ends with exec 
-run-init; other distros use switch_root(8). GNU GROUB
+run-init; other distros use switch_root(8). GNU GRUB manual, the linux,
+initrd and nativedisk commands. Debian initrams-tools.
